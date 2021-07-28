@@ -1,3 +1,5 @@
+package main;
+
 import AllUseCases.User;
 import JsonEntities.SignatureRequestResponse;
 import UseCase1.Poller;
@@ -19,17 +21,20 @@ public class Main {
     //@Todo: open connection stuff in request class if possible
     //@Todo: dont make token as a static field but return it after login for use in later requests --> DONE
 
+    //make new single jar file (after changin code) with:mvn clean compile assembly:single
+    //then go cd target and do:
+    //run with cmd line with: java -jar UseCase1-1.0-SNAPSHOT-jar-with-dependencies.jar
+    //First cmd line-argument: path to csv file
 
 
-
-    public static void main(/*@org.jetbrains.annotations.NotNull*/ String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
         //doUseCase1();
-        doUseCase2();
+        doUseCase2(args[0]);
     }
 
 
 
-    public static void doUseCase2() throws IOException {
+    public static void doUseCase2(String arg) throws IOException {
 
         //1. Login User
         User user = new User("api_demo_maxag_dd58_0", "8cecd429-3749-4e2a-9bf4-7d520e3196b0");
@@ -37,7 +42,8 @@ public class Main {
         System.out.println("You have been successfully logged in");
 
         //2. read the csv file and create a list with signer documents and E-Mails
-        CSVFile csvFile = new CSVFile("/Users/maxzehnder/Desktop/Skribble/TestFiles/TestCSVFile.csv");
+        CSVFile csvFile = new CSVFile(arg);
+        //CSVFile csvFile = new CSVFile("/Users/maxzehnder/Desktop/Skribble/TestFiles/TestCSVFile.csv");
         csvFile.readCSVFile();
 
         //3. populate signer-List with signers of csv file as Signer Entities
