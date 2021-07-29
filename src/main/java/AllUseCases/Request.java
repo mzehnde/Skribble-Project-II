@@ -5,19 +5,41 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class Request {
 
     private String requestType;
     private String JsonInputString;
-    private HttpURLConnection connection;
+    private URL url;
     private StringBuilder token;
 
-    public Request(String requestType, String jsonInputString, HttpURLConnection connection, StringBuilder token) {
+    public void setConnection(HttpURLConnection connection) {
+        this.connection = connection;
+    }
+
+    public HttpURLConnection getConnection() {
+        return connection;
+    }
+
+    private HttpURLConnection connection;
+
+
+
+
+    public void setUrl(URL url) {
+        this.url = url;
+    }
+
+    public URL getUrl() {
+        return url;
+    }
+
+    public Request(String requestType, String jsonInputString, StringBuilder token, URL url) {
         this.requestType = requestType;
         this.JsonInputString = jsonInputString;
-        this.connection = connection;
+        this.url = url;
         this.token = token;
     }
 
@@ -29,9 +51,7 @@ public class Request {
     public String getJsonInputString() {
         return JsonInputString;
     }
-    public HttpURLConnection getConnection() {
-        return connection;
-    }
+
 
 
     public void setRequestType(String requestType) {
@@ -42,12 +62,12 @@ public class Request {
         JsonInputString = jsonInputString;
     }
 
-    public void setConnection(HttpURLConnection connection) {
-        this.connection = connection;
-    }
+
 
 
     public String processRequest(boolean pdf) throws IOException {
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        setConnection(connection);
 
         setRequestProperties();
 

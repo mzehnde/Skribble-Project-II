@@ -32,20 +32,20 @@ public class DocumentSigned {
     }
 
 
-    public void downloadPDF() throws IOException {
+    public void downloadPDF(String savePath) throws IOException {
 
         //GET REQUEST TO RETRIEVE PDF
         URL url = new URL("https://api.scribital.com/v1/documents/" + signedDocumentId + "/content");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        //HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-        Request request = new Request("GET", null, connection, token);
+        Request request = new Request("GET", null, token, url);
         request.processRequest(true);
 
-        getResponseData(request);
+        getResponseData(request, savePath);
     }
 
 
-    private void getResponseData(Request request){
+    private void getResponseData(Request request, String savePath){
         try {
             InputStream inputStream = request.getConnection().getInputStream();
             FileOutputStream outputStream = new FileOutputStream("/Users/maxzehnder/Desktop/Skribble/TestFiles/signed.pdf");

@@ -35,23 +35,28 @@ public class Poller {
         this.signatureRequestResponse = signatureRequestResponse;
     }
 
-    public void startPolling(SignatureRequestResponse signatureRequestResponse) {
+    public void startPolling(SignatureRequestResponse signatureRequestResponse, String savePath) {
         //Start polling SR Get, every 10 seconds
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 //open connection
-                HttpURLConnection connection = openConnection();
+                //HttpURLConnection connection = openConnection();
 
 
-                SignatureRequestResponse signatureRequestResponse = getSignatureRequestResponse(connection);
+                SignatureRequestResponse signatureRequestResponse = null;
+                try {
+                    signatureRequestResponse = getSignatureRequestResponse1();
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
 
                 if (isSigned(signatureRequestResponse)) {
                     try {
 
                         DocumentSigned documentSigned = new DocumentSigned(signatureRequestResponse.getDocument_id(), token);
-                        documentSigned.downloadPDF();
+                        documentSigned.downloadPDF(savePath);
                         System.out.println("Your Document was signed and downloaded");
 
                     } catch (IOException e) {
@@ -65,13 +70,13 @@ public class Poller {
                 }
 
                 //disconnect
-                connection.disconnect();
+                //connection.disconnect();
             }
         }, 0, 10000);//wait 0 ms before doing the action and do it evry 1000ms (1second)
     }
 
 
-    public HttpURLConnection openConnection() {
+    /*public HttpURLConnection openConnection() {
         URL url = null;
         try {
             url = new URL("https://api.scribital.com/v1/signature-requests/" + signatureRequestResponse.getId() + "");
@@ -88,13 +93,14 @@ public class Poller {
         }
 
         return connection;
-    }
+    }*/
 
 
-    public SignatureRequestResponse getSignatureRequestResponse(HttpURLConnection connection) {
+    public SignatureRequestResponse getSignatureRequestResponse1() throws MalformedURLException {
+        URL url = new URL("https://api.scribital.com/v1/signature-requests/" + signatureRequestResponse.getId() + "");
         String data = null;
         try {
-            Request request = new Request("GET", null, connection, token);
+            Request request = new Request("GET", null, token, url);
             data = request.processRequest(false);
         } catch (IOException e) {
             e.printStackTrace();

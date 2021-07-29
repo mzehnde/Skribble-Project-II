@@ -56,7 +56,6 @@ public class AllSignatureRequests {
 
         for (Signer signer : signerList) {
             URL url = new URL("https://api.scribital.com/v1/signature-requests");
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
             String jsonInputString = "{\"title\": \"Example Contract X\"," +
                     "\"message\": \"Please sign this document\"," +
@@ -65,11 +64,10 @@ public class AllSignatureRequests {
                     "\"callback_success_url\": \"https://invulnerable-vin-64865.herokuapp.com/download/SKRIBBLE_DOCUMENT_ID\"}";
 
             //get the response of the request in Json and create response-list with entity (converted from json file)
-            Request request = new Request("POST", jsonInputString, connection, token);
+            Request request = new Request("POST", jsonInputString, token, url);
             String response = request.processRequest(false);
             SignatureRequestResponse signatureRequestResponse = convertJsonToEntity(response);
             responseList.add(signatureRequestResponse);
-            //setResponseList(responseList);
         }
         return responseList;
     }

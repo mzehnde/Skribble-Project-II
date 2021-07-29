@@ -56,20 +56,20 @@ public class User {
 
         // build a connection to the API call
         URL url = new URL("https://api.scribital.com/v1/access/login");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        //HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
         //Create JSonInput for Login Request
         String jsonInputString1 = "{\"username\": \"" + this.getUsername() + "\", \"api-key\":\"" + this.getApi_key() + "\"}";
 
         //Process the request and get response of request
-        Request request = new Request("POST", jsonInputString1, connection, null);
+        Request request = new Request("POST", jsonInputString1, null, url);
         String token = request.processRequest(false);
 
         //save response as our token
         saveToken(token);
 
         //disconnect
-        connection.disconnect();
+        //connection.disconnect();
         return this.token;
     }
 

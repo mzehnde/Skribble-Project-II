@@ -39,7 +39,7 @@ public class SignatureRequest {
 
         //build a connection to the API call
         URL url = new URL("https://api.scribital.com/v1/signature-requests");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        //HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
         DocumentToSign documentToSign = new DocumentToSign(filePath);
         user.setDocumentToSign(documentToSign);
@@ -52,7 +52,7 @@ public class SignatureRequest {
                 "\"callback_success_url\": \"https://invulnerable-vin-64865.herokuapp.com/download/SKRIBBLE_DOCUMENT_ID\"}";
 
         //process SR Request call and retrieve Response
-        Request request = new Request("POST", jsonInputString2, connection, token);
+        Request request = new Request("POST", jsonInputString2, token, url);
         String response = request.processRequest(false);
 
         //convert Json Response to Entity and return (for polling)

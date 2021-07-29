@@ -25,6 +25,13 @@ public class Main {
     //make new single jar file (after changin code) with:mvn clean compile assembly:single
     //then go cd target and do:
     //run with cmd line with: java -jar UseCase1-1.0-SNAPSHOT-jar-with-dependencies.jar
+    //UseCase1:
+    //argument1: filepath: /Users/maxzehnder/Desktop/Skribble/Administratives/PersönlicheAngaben.pdf
+    //argument2: savepath: "/Users/maxzehnder/Desktop/Skribble/TestFiles/signed.pdf"
+
+
+
+    //UseCase2:
     //args[0]: path to csv file
     //args[1]: path to files to be signed (in one directory)
     //args[2]: path where the SR-Id file should be saved
@@ -35,7 +42,7 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException {
-        //doUseCase1();
+        //doUseCase1(args[0], args[1]);
         checkCmdLineInput(args);
         doUseCase2(args[0], args[1], args[2]);
     }
@@ -51,7 +58,6 @@ public class Main {
 
         //2. read the csv file and create a list with signer documents and E-Mails
         CSVFile csvFile = new CSVFile(csvFilePath);
-        //CSVFile csvFile = new CSVFile("/Users/maxzehnder/Desktop/Skribble/TestFiles/TestCSVFile.csv");
         List<String> csvFileList = csvFile.readCSVFile();
 
         //3. populate signer-List with signers of csv file as Signer Entities
@@ -73,27 +79,20 @@ public class Main {
     }
 
 
-    public static void doUseCase1() throws IOException {
+    public static void doUseCase1(String pathOfFileToBeSigned, String pathOfFileSigned) throws IOException {
         User user = new User("api_demo_maxag_dd58_0", "8cecd429-3749-4e2a-9bf4-7d520e3196b0");
         StringBuilder token = user.loginUser();
         System.out.println("You have been successfully logged in");
 
-
-        //handle path of file to be signed
-        Scanner filePathInput = new Scanner(System.in);
-        System.out.println("Enter the path of your File to be signed:");
-        String filePath = filePathInput.nextLine();
-
-
         //CREATE SR POST REQUEST
         SignatureRequest signatureRequest = new SignatureRequest(user, token);
-        SignatureRequestResponse signatureRequestResponse = signatureRequest.createSR(filePath);
+        SignatureRequestResponse signatureRequestResponse = signatureRequest.createSR(pathOfFileToBeSigned);
         System.out.println("Please wait until your document is signed");
 
 
         //check if signed and download doc after signing
         Poller poller = new Poller(signatureRequestResponse, token);
-        poller.startPolling(signatureRequestResponse);
+        poller.startPolling(signatureRequestResponse, pathOfFileSigned);
     }
 
     public static void checkCmdLineInput(String[] input){
