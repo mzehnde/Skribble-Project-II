@@ -50,6 +50,10 @@ public class AllSignatureRequests {
     public void doRequests() throws IOException {
         ArrayList<SignatureRequestResponse> responseList = new ArrayList<>();
 
+        if (signerList == null || signerList.size() == 0){
+            System.out.println("Your List of signer is empty, can't send the signature Requests. PLease check yur CSV File");
+        }
+
         for (Signer signer : signerList) {
             URL url = new URL("https://api.scribital.com/v1/signature-requests");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();

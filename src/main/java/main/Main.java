@@ -17,7 +17,7 @@ import static java.lang.System.exit;
 
 public class Main {
 
-    //@Todo: write arguments in args
+    //@Todo: write arguments in args --> DONE
     //@Todo: format of classes (static beginning, constructor beginning) -->DONE
     //@Todo: dont do set(sth) when class isn't used later instead return it
     //@Todo: open connection stuff in request class if possible
@@ -68,7 +68,7 @@ public class Main {
         signatureRequestIdFile.writeIdToFile();
 
         System.out.println(allSignatureRequests.getResponseList().get(0).getId());
-        System.out.println(allSignatureRequests.getResponseList().get(1).getId());
+        //System.out.println(allSignatureRequests.getResponseList().get(1).getId());
 
 
     }

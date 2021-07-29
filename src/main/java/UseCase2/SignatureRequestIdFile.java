@@ -9,6 +9,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static java.lang.System.exit;
+
 public class SignatureRequestIdFile {
 
     private ArrayList<SignatureRequestResponse> responseList;
@@ -40,7 +42,13 @@ public class SignatureRequestIdFile {
 
     //create a new file and write Signature-Request Id's with corresponding E-Mail to it
     public void writeIdToFile() throws IOException {
-        FileOutputStream fileOutputStream = new FileOutputStream(filePath);
+        FileOutputStream fileOutputStream = null;
+        try {
+            fileOutputStream = new FileOutputStream(filePath);
+        } catch (Exception e) {
+            System.out.println("Your path where you want to save your Id File is invalid");
+            exit(0);
+        }
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         handleFileFormat(byteArrayOutputStream);
 

@@ -3,12 +3,15 @@ package UseCase2;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
+import javax.security.auth.callback.TextInputCallback;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static java.lang.System.exit;
 
 public class CSVFile {
 
@@ -54,10 +57,15 @@ public class CSVFile {
             for (List<String> record : records) {
                 csvFileList.add(record.get(0));
             }
+            if (csvFileList.size() == 0){
+                System.out.println("Your CSV File is Empty. Please fill it out or provide a valid one");
+                exit(0);
+            }
 
             setCSVFileList(csvFileList);
         } catch (IOException | CsvValidationException e) {
-            e.printStackTrace();
+            System.out.print(String.format("Your CSV File can't be found on this path: %s", this.getFilePath()));
+            exit(0);
         }
     }
 
