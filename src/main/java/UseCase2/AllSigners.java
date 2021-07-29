@@ -26,12 +26,12 @@ public class AllSigners {
     }
 
     //convert the csvFile-List to a list with Signer Entities (with E-Mail and DocumentToSign Entity)
-    public void populateSignerList(CSVFile csvFile) throws IOException {
+    public void populateSignerList(CSVFile csvFile, String filesToBeSignedPath) throws IOException {
         ArrayList<Signer> signerList = new ArrayList<>();
         List<String> csvFileList = csvFile.getCSVFileList();
         for (int i = 0; i < csvFileList.size(); i++) {
             String[] parts = csvFileList.get(i).split(";");
-            DocumentToSign documentToSign = convertFileToBase64(parts[0], "/Users/maxzehnder/Desktop/Skribble/TestFiles");
+            DocumentToSign documentToSign = convertFileToBase64(parts[0], filesToBeSignedPath);
             if (documentToSign != null) {
                 signerList.add(new Signer(documentToSign, parts[1]));
             }
