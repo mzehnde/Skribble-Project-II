@@ -4,13 +4,12 @@ import AllUseCases.User;
 import JsonEntities.SignatureRequestResponse;
 import UseCase1.Poller;
 import UseCase1.SignatureRequest;
-import UseCase2.AllSignatureRequests;
-import UseCase2.AllSigners;
-import UseCase2.CSVFile;
-import UseCase2.SignatureRequestIdFile;
+import UseCase2.*;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import static java.lang.System.exit;
@@ -53,21 +52,21 @@ public class Main {
         //2. read the csv file and create a list with signer documents and E-Mails
         CSVFile csvFile = new CSVFile(csvFilePath);
         //CSVFile csvFile = new CSVFile("/Users/maxzehnder/Desktop/Skribble/TestFiles/TestCSVFile.csv");
-        csvFile.readCSVFile();
+        List<String> csvFileList = csvFile.readCSVFile();
 
         //3. populate signer-List with signers of csv file as Signer Entities
         AllSigners allSigners = new AllSigners();
-        allSigners.populateSignerList(csvFile, filesToBeSignedPath);
+        ArrayList<Signer> signerList = allSigners.populateSignerList(csvFileList, filesToBeSignedPath);
 
         //4. Process the requests and get response-list of all the requests
-        AllSignatureRequests allSignatureRequests = new AllSignatureRequests(allSigners.getSignerList(), token);
-        allSignatureRequests.doRequests();
+        AllSignatureRequests allSignatureRequests = new AllSignatureRequests(signerList, token);
+        ArrayList<SignatureRequestResponse> responseList = allSignatureRequests.doRequests();
 
         //5. Write SR Id's to file with corresponding E-Mail
-        SignatureRequestIdFile signatureRequestIdFile = new SignatureRequestIdFile(allSignatureRequests.getResponseList(), signatureRequestIdFilePath);
+        SignatureRequestIdFile signatureRequestIdFile = new SignatureRequestIdFile(responseList, signatureRequestIdFilePath);
         signatureRequestIdFile.writeIdToFile();
 
-        System.out.println(allSignatureRequests.getResponseList().get(0).getId());
+        System.out.println(responseList.get(0).getId());
         //System.out.println(allSignatureRequests.getResponseList().get(1).getId());
 
 

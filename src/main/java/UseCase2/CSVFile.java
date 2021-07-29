@@ -3,7 +3,6 @@ package UseCase2;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
-import javax.security.auth.callback.TextInputCallback;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -43,7 +42,7 @@ public class CSVFile {
 
 
     //read the CSV File and create a list with signer emails and their files to be signed
-    public void readCSVFile() throws FileNotFoundException {
+    public List<String> readCSVFile() throws FileNotFoundException {
         List<List<String>> records = new ArrayList<>();
         List<String> csvFileList = new ArrayList<>();
 
@@ -62,11 +61,11 @@ public class CSVFile {
                 exit(0);
             }
 
-            setCSVFileList(csvFileList);
         } catch (IOException | CsvValidationException e) {
             System.out.print(String.format("Your CSV File can't be found on this path: %s", this.getFilePath()));
             exit(0);
         }
+        return csvFileList;
     }
 
 }

@@ -47,7 +47,7 @@ public class AllSignatureRequests {
 
 
     //create SR for all files and signers in signer-list
-    public void doRequests() throws IOException {
+    public ArrayList<SignatureRequestResponse> doRequests() throws IOException {
         ArrayList<SignatureRequestResponse> responseList = new ArrayList<>();
 
         if (signerList == null || signerList.size() == 0){
@@ -69,7 +69,8 @@ public class AllSignatureRequests {
             String response = request.processRequest(false);
             SignatureRequestResponse signatureRequestResponse = convertJsonToEntity(response);
             responseList.add(signatureRequestResponse);
-            setResponseList(responseList);
+            //setResponseList(responseList);
         }
+        return responseList;
     }
 }
