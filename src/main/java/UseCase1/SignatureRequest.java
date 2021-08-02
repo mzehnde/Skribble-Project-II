@@ -39,8 +39,6 @@ public class SignatureRequest {
 
         //build a connection to the API call
         URL url = new URL("https://api.scribital.com/v1/signature-requests");
-        //HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
         DocumentToSign documentToSign = new DocumentToSign(filePath);
         user.setDocumentToSign(documentToSign);
 
@@ -56,8 +54,7 @@ public class SignatureRequest {
         String response = request.processRequest(false);
 
         //convert Json Response to Entity and return (for polling)
-        SignatureRequestResponse signatureRequestResponse = convertJsonToEntity(response);
-        return signatureRequestResponse;
+        return convertJsonToEntity(response);
     }
 
 

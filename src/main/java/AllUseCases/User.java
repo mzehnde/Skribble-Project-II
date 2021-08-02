@@ -65,11 +65,8 @@ public class User {
         Request request = new Request("POST", jsonInputString1, null, url);
         String token = request.processRequest(false);
 
-        //save response as our token
+        //save response as our token & return it
         saveToken(token);
-
-        //disconnect
-        //connection.disconnect();
         return this.token;
     }
 

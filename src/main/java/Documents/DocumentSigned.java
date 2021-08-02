@@ -55,7 +55,6 @@ public class DocumentSigned {
             while ((bytesRead = inputStream.read(buffer)) != -1) {
                 outputStream.write(buffer, 0, bytesRead);
             }
-
         } catch (Exception e) {
             System.out.println("Couldn't access Input Stream");
         }

@@ -49,6 +49,7 @@ public class SignatureRequestIdFile {
             System.out.println("Your path where you want to save your Id File is invalid");
             exit(0);
         }
+
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         handleFileFormat(byteArrayOutputStream);
 

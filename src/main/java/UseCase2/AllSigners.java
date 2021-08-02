@@ -39,8 +39,8 @@ public class AllSigners {
                 System.out.println(String.format("The Signature Request couldn't be sent to %s because the file %s doesn't exist in the provided directory",
                         parts[1], parts[0]));
             }
-
         }
+
         return signerList;
     }
 

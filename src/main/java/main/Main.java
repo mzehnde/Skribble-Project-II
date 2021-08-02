@@ -18,9 +18,10 @@ public class Main {
 
     //@Todo: write arguments in args --> DONE
     //@Todo: format of classes (static beginning, constructor beginning) -->DONE
-    //@Todo: dont do set(sth) when class isn't used later instead return it
-    //@Todo: open connection stuff in request class if possible
+    //@Todo: dont do set(sth) when class isn't used later instead return it --> DONE
+    //@Todo: open connection stuff in request class if possible --> DONE
     //@Todo: dont make token as a static field but return it after login for use in later requests --> DONE
+    //@Todo: clean up code --> delete comments etc.
 
     //make new single jar file (after changin code) with:mvn clean compile assembly:single
     //then go cd target and do:

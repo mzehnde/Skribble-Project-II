@@ -41,15 +41,16 @@ public class Poller {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                //open connection
-                //HttpURLConnection connection = openConnection();
-
 
                 SignatureRequestResponse signatureRequestResponse = null;
                 try {
+
                     signatureRequestResponse = getSignatureRequestResponse1();
+
                 } catch (MalformedURLException e) {
+
                     e.printStackTrace();
+
                 }
 
                 if (isSigned(signatureRequestResponse)) {
@@ -68,32 +69,9 @@ public class Poller {
                     //Stop polling
                     timer.cancel();
                 }
-
-                //disconnect
-                //connection.disconnect();
             }
         }, 0, 10000);//wait 0 ms before doing the action and do it evry 1000ms (1second)
     }
-
-
-    /*public HttpURLConnection openConnection() {
-        URL url = null;
-        try {
-            url = new URL("https://api.scribital.com/v1/signature-requests/" + signatureRequestResponse.getId() + "");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-
-        HttpURLConnection connection = null;
-        try {
-            connection = (HttpURLConnection) url.openConnection();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return connection;
-    }*/
 
 
     public SignatureRequestResponse getSignatureRequestResponse1() throws MalformedURLException {
@@ -114,4 +92,5 @@ public class Poller {
     public boolean isSigned(SignatureRequestResponse signatureRequestResponse) {
         return signatureRequestResponse.getStatus_overall().equals("SIGNED");
     }
+
 }

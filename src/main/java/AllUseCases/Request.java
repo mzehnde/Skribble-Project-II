@@ -14,27 +14,8 @@ public class Request {
     private String JsonInputString;
     private URL url;
     private StringBuilder token;
-
-    public void setConnection(HttpURLConnection connection) {
-        this.connection = connection;
-    }
-
-    public HttpURLConnection getConnection() {
-        return connection;
-    }
-
     private HttpURLConnection connection;
 
-
-
-
-    public void setUrl(URL url) {
-        this.url = url;
-    }
-
-    public URL getUrl() {
-        return url;
-    }
 
     public Request(String requestType, String jsonInputString, StringBuilder token, URL url) {
         this.requestType = requestType;
@@ -52,6 +33,14 @@ public class Request {
         return JsonInputString;
     }
 
+    public HttpURLConnection getConnection() {
+        return connection;
+    }
+
+    public URL getUrl() {
+        return url;
+    }
+
 
 
     public void setRequestType(String requestType) {
@@ -62,6 +51,11 @@ public class Request {
         JsonInputString = jsonInputString;
     }
 
+    public void setConnection(HttpURLConnection connection) { this.connection = connection; }
+
+    public void setUrl(URL url) {
+        this.url = url;
+    }
 
 
 

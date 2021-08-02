@@ -49,14 +49,13 @@ public class AllSignatureRequests {
     //create SR for all files and signers in signer-list
     public ArrayList<SignatureRequestResponse> doRequests() throws IOException {
         ArrayList<SignatureRequestResponse> responseList = new ArrayList<>();
+        URL url = new URL("https://api.scribital.com/v1/signature-requests");
 
         if (signerList == null || signerList.size() == 0){
-            System.out.println("Your List of signer is empty, can't send the signature Requests. PLease check yur CSV File");
+            System.out.println("Your List of signer is empty, can't send the signature Requests. Please check yur CSV File");
         }
 
         for (Signer signer : signerList) {
-            URL url = new URL("https://api.scribital.com/v1/signature-requests");
-
             String jsonInputString = "{\"title\": \"Example Contract X\"," +
                     "\"message\": \"Please sign this document\"," +
                     "\"content\":\"" + signer.getDocumentToSign().getBase64Content() + "\"," +
@@ -66,8 +65,7 @@ public class AllSignatureRequests {
             //get the response of the request in Json and create response-list with entity (converted from json file)
             Request request = new Request("POST", jsonInputString, token, url);
             String response = request.processRequest(false);
-            SignatureRequestResponse signatureRequestResponse = convertJsonToEntity(response);
-            responseList.add(signatureRequestResponse);
+            responseList.add(convertJsonToEntity(response));
         }
         return responseList;
     }
