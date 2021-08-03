@@ -86,6 +86,7 @@ Such that you can work smoothly with the CSV File, the CSVFile List should be co
 We iterate through the CSVFileList and create a new Signer instance for every index (with filename & E-Mail). We add these instances to a new Array called signerList.
 Now we have a List that consists of all the signers specified in the CSV File. These signer Instances consist of the E-Mail where the Signature Request should be sent to and the file that should be uploaded with that Signature-Request.
 
+
 ## 4. Send the Signature-Requests
 
 The following API-Call will be used for step 4:
@@ -93,3 +94,13 @@ The following API-Call will be used for step 4:
 
 Now that we have a list with all the signers that should receive a Signature-Request we can call the API to process these Requests.
 To do that we iterate through our signerList and send out a Signature-Request via API for every index of that list. For every index the Request Body will be filled out with the signers E-Mail and the base64 Content of the PDF file he should sign. We receive a response for every Request that we save in a new Array called responseList.
+
+
+## 5. Use the response of the Signature-Requests
+
+For step five we have two possibilities. 
+1. We either save the Signature-Request-ID we receive as a response for every Signature-Request in a .txt file such that we can make use of it at a later point. For example after you know every employee signed its contract you can use this file to receive the document ID via API and download the signed Document.
+To proceed with this possibility comment out step 6 in the function doUseCase2() in the Main class.
+To create the file, we iterate through our responseList to write every Signature-Request-ID and corresponding E-Mail to the File. It then can be found under the path specified as argument 3.
+2. A second possibility would be polling. To make use of this possibility, comment out step 5 out of the function doUseCase2() in the Main class.
+With this option, every 10 seconds a GET request will be called to the API of Skribble in order to check if the document was signed. If it was signed it will automatically be saved under the path specified in argument 3.
