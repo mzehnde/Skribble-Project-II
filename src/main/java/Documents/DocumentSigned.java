@@ -3,6 +3,7 @@ package Documents;
 
 
 import AllUseCases.Request;
+import JsonEntities.SignatureRequestResponse;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -32,7 +33,7 @@ public class DocumentSigned {
     }
 
 
-    public void downloadPDF(String savePath) throws IOException {
+    public void downloadPDF(String savePath, SignatureRequestResponse signatureRequestResponse) throws IOException {
 
         //GET REQUEST TO RETRIEVE PDF
         URL url = new URL("https://api.scribital.com/v1/documents/" + signedDocumentId + "/content");
@@ -41,15 +42,14 @@ public class DocumentSigned {
         Request request = new Request("GET", null, token, url);
         request.processRequest(true);
 
-        getResponseData(request, savePath);
+        getResponseData(request, savePath, signatureRequestResponse);
     }
 
 
-    private void getResponseData(Request request, String savePath){
+    private void getResponseData(Request request, String savePath, SignatureRequestResponse signatureRequestResponse){
         try {
             InputStream inputStream = request.getConnection().getInputStream();
-            FileOutputStream outputStream = new FileOutputStream("/Users/maxzehnder/Desktop/Skribble/TestFiles/signed.pdf");
-
+            FileOutputStream outputStream = new FileOutputStream(String.format(savePath + "/%s.pdf", signatureRequestResponse.getId()));
             int bytesRead = -1;
             byte[] buffer = new byte[1024];
             while ((bytesRead = inputStream.read(buffer)) != -1) {

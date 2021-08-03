@@ -10,7 +10,6 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import static java.lang.System.exit;
 
@@ -70,8 +69,14 @@ public class Main {
         ArrayList<SignatureRequestResponse> responseList = allSignatureRequests.doRequests();
 
         //5. Write SR Id's to file with corresponding E-Mail
-        SignatureRequestIdFile signatureRequestIdFile = new SignatureRequestIdFile(responseList, signatureRequestIdFilePath);
-        signatureRequestIdFile.writeIdToFile();
+        /*SignatureRequestIdFile signatureRequestIdFile = new SignatureRequestIdFile(responseList, signatureRequestIdFilePath);
+        signatureRequestIdFile.writeIdToFile();*/
+
+        //6. or start polling to automatically download the pdf after it is signed
+        for (SignatureRequestResponse sr : responseList) {
+            Poller poller = new Poller(sr, token);
+            poller.startPolling(sr, signatureRequestIdFilePath);
+        }
 
         System.out.println(responseList.get(0).getId());
         //System.out.println(allSignatureRequests.getResponseList().get(1).getId());

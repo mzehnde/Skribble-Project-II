@@ -42,9 +42,10 @@ public class SignatureRequestIdFile {
 
     //create a new file and write Signature-Request Id's with corresponding E-Mail to it
     public void writeIdToFile() throws IOException {
+        String path = filePath + "/Signature-Request-ID's";
         FileOutputStream fileOutputStream = null;
         try {
-            fileOutputStream = new FileOutputStream(filePath);
+            fileOutputStream = new FileOutputStream(path);
         } catch (Exception e) {
             System.out.println("Your path where you want to save your Id File is invalid");
             exit(0);
