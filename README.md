@@ -1,3 +1,5 @@
+TODO: add setup chapter: what do we need (maven etc) and how to change from using different usecases (assembly:single)
+
 # Upload and Download **one** PDF File
 
 The most simple Use Case of Uploading a File, waiting for it to be signed and downloading the file after, consists of three arguments and three steps.
