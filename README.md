@@ -1,4 +1,4 @@
-##Upload and Download **one** PDF File
+## Upload and Download **one** PDF File
 The most simple Use Case of Uploading a File, waiting for it to be signed and downloading the file after, consists of three arguments and three steps.
 -Argument 1: The Path of the file that has to be signed.
 -Argument 2: The path where the *signed* file should be saved.
@@ -10,7 +10,7 @@ While being in the target folder of the application, the program can be called v
 
 After this call the following three steps will be executed.
 
-#1. Login the User
+# 1. Login the User
 
 The following API-Call will be used for step 1:
 > https://api.scribital.com/v1/access/login
@@ -20,7 +20,7 @@ You need to specify your username and api-key directly in the code in the Main C
 To Log yourself in, a new instance of User has to be created with your username and api-key. After that, the loginUser() function will be called on that created instance. A request to the API of Skribble will be sent and you will be logged in. You receive a token for verification and are able to work with Skribbles API.
 
 
-#2. Create a Signature-Request
+# 2. Create a Signature-Request
 
 The following API-Call will be used for step 2:
 > https://api.scribital.com/v1/signature-requests
@@ -31,7 +31,7 @@ After that the function createSR can be called in order to send a request to Skr
 Now the file is uploaded to Skribble for the signer to be signed.
 
 
-#3. Download the signed file
+# 3. Download the signed file
 
 The following API-Calls will be used for step 3:
 > Polling: https://api.scribital.com/v1/signature-requests/*signatureRequestID*
