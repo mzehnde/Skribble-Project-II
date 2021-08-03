@@ -1,8 +1,8 @@
 # Upload and Download **one** PDF File
 The most simple Use Case of Uploading a File, waiting for it to be signed and downloading the file after, consists of three arguments and three steps.
--Argument 1: The Path of the file that has to be signed.
--Argument 2: The path where the *signed* file should be saved.
--Argument 3: The E-Mail of the person that has to sign the PDF document.
+- Argument 1: The Path of the file that has to be signed.
+- Argument 2: The path where the *signed* file should be saved.
+- Argument 3: The E-Mail of the person that has to sign the PDF document.
 
 While being in the target folder of the application, the program can be called via the Command Line with this command:
 
