@@ -44,4 +44,12 @@ Once the document was signed, the second GET Request will be called in order to 
 
 
 
-
+# Upload and Download **multiple** PDF Files
+There are a lot of possibilities to make use of this Use Case. For example there could be a change in an employment contract that regards all of a firms employees.
+With the help of the following explanation of the implemented Use Case it will be possible to send Signature Requests to all employees with their corresponding updated employment contract at once. 
+This Use Case consists of three arguments and 5 steps.
+- Argument 1: A CSV File has to be provided. It should consist of two columns: 
+  - column 1: The filename of the file to be signed
+  - column 2: The E-Mail of the signer that should sign the file of column 1
+- Argument 2: The path to the directory where the files specified in the CSV File of argument 1  are saved (the files should be saved in one directory)
+- Argument 3 (optional): The path where the file with the resulting Signatur-Request_ID's should be saved
