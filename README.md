@@ -34,8 +34,8 @@ Now the file is uploaded to Skribble for the signer to be signed.
 ## 3. Download the signed file
 
 The following API-Calls will be used for step 3:
-- > Polling: https://api.scribital.com/v1/signature-requests/signatureRequestID
-- > Download: https://api.scribital.com/v1/documents/signedDocumentID/content
+- > Polling: https://api.scribital.com/v1/signature-requests/SIGNATURE_REQUEST_ID
+- > Download: https://api.scribital.com/v1/documents/SIGNED_DOCUMENT_ID/content
 
 For the download of the signed PDF a new Poller instance has to be instanciated. The Signature-Request-Response of step 2 acts as a field in that class.
 Now startPolling() is called to start the Poll. Every 10 seconds the first GET Request on the ID of the Signature-Request is called to check if the document was signed already.
