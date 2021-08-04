@@ -63,10 +63,10 @@ public class Request {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         setConnection(connection);
 
-        setRequestProperties();
+        setUpRequestProperties();
 
         if (requestType == "POST") {
-            setOutputStream();
+            setUpOutputStream();
         }
         if (pdf) {
             return null;
@@ -78,7 +78,7 @@ public class Request {
 
 
     //Helper Functions / setting Streams & Requests up
-    public void setRequestProperties() throws IOException {
+    public void setUpRequestProperties() throws IOException {
 
         if (token != null) {
             connection.setRequestProperty("Authorization", "Bearer " + token.toString());
@@ -91,7 +91,7 @@ public class Request {
         connection.setReadTimeout(6000);
     }
 
-    public void setOutputStream() throws IOException {
+    public void setUpOutputStream() throws IOException {
         try (OutputStream os = connection.getOutputStream()) {
             byte[] input = JsonInputString.getBytes(StandardCharsets.UTF_8);
             os.write(input, 0, input.length);

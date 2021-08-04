@@ -56,7 +56,6 @@ public class User {
 
         // build a connection to the API call
         URL url = new URL("https://api.scribital.com/v1/access/login");
-        //HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
         //Create JSonInput for Login Request
         String jsonInputString1 = "{\"username\": \"" + this.getUsername() + "\", \"api-key\":\"" + this.getApi_key() + "\"}";

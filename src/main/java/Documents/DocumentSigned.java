@@ -37,7 +37,6 @@ public class DocumentSigned {
 
         //GET REQUEST TO RETRIEVE PDF
         URL url = new URL("https://api.scribital.com/v1/documents/" + signedDocumentId + "/content");
-        //HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
         Request request = new Request("GET", null, token, url);
         request.processRequest(true);
