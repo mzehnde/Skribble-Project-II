@@ -28,7 +28,7 @@ public class AllSigners {
     //convert the csvFile-List to a list with Signer Entities (with E-Mail and DocumentToSign Entity)
     public ArrayList<Signer> populateSignerList(List <String> csvFileList, String filesToBeSignedPath) throws IOException {
         ArrayList<Signer> signerList = new ArrayList<>();
-        //List<String> csvFileList = csvFile.getCSVFileList();
+
         for (int i = 0; i < csvFileList.size(); i++) {
             String[] parts = csvFileList.get(i).split(";");
             DocumentToSign documentToSign = convertFileToBase64(parts[0], filesToBeSignedPath);
