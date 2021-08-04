@@ -139,6 +139,6 @@ To proceed with this possibility you don't have to do anything because it is alr
 To create the file, we iterate through our responseList to write every Signature-Request-ID and corresponding E-Mail to the File. It then can be found under the path specified as argument 3.
 2. A second possibility would be polling. To make use of this possibility, comment out step 5 out of the function doUseCase2() in the Main class and delete the comment for step 6 in the Main class. Don't forget to call this command after changin the code such that a new jar file will be created.
 
->mvn clean compile assembly:single
+  >mvn clean compile assembly:single
 
 With this option, every 10 seconds a GET request will be called to the API of Skribble in order to check if the document was signed. If it was signed it will automatically be saved under the path specified in argument 3.
