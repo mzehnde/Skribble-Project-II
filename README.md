@@ -1,35 +1,42 @@
-TODO: add setup chapter: what do we need (maven etc) and how to change from using different usecases (assembly:single)
 # Set UP
 
 ## Required Tools
 If you want to make use of the program the following tools are required
 
 - Java JDK:
-  - To Check if you have it already installed run >java --version
+  - To Check if you have it already installed run
+    >java --version
   - tutorial how to install: https://www.youtube.com/watch?v=IJ-PJbvJBGs
   - download here: https://www.oracle.com/java/technologies/javase-jdk16-downloads.html
 
-- Maven: Because the application is compressed into a jar File for the purpose of running the program over the cmd Line we use Maven. 
+- Maven: Because the application is compressed into a jar File for the purpose of running the program over the cmd Line we use Maven.   
+  - to check if you have it already installed run
+    >mvn --version
   - Version: 3.8.1
   - tutorial how to install: https://www.youtube.com/watch?v=RfCWg5ay5B0
   - download here: https://maven.apache.org/download.cgi  
 
-## How to
-
-
-
-
-
+## How to use the program
+1. Make sure all required tools are installed
+2. Download the source code from Github and save it somewhere on your desktop
+3. Open the Code in an IDE (e.g Intellij)
+4. Decide which Use Case (Use Case 1: Upload/Download *one* PDF or Use Case 2: Upload/Download *multiple* PDF's at once) you want to use the application for¨
+   - Use Case 1: If you decide to use the application for this Use Case, comment out line 20 and line 21 in the Main Class such that only UseCase1 is called.
+   - Use Case 2: If you decide to use the application for this Use Case, comment out line 19 in the Main Class such that only UseCase2 is called.
+5. Now fill in your username and api-key directly in the code such that you can be logged in and use the API: Line 20 in the Main Class
+6. **IMPORTANT:** After every change in the Code (like Step 4/5) you have to run this command while being in the root folder of the application to generate a new jar File that will be run:
+   >mvn clean compile assembly:single
+7. Now you are set up and can continue with the specific use cases described below
 
 
 # Upload and Download **one** PDF File
 
-The most simple Use Case of Uploading a File, waiting for it to be signed and downloading the file after, consists of three arguments and three steps.
+The most simple Use Case of Uploading a PDF File, waiting for it to be signed and downloading the file after, consists of three arguments and three steps.
 - Argument 1: The Path of the file that has to be signed.
 - Argument 2: The path where the *signed* file should be saved.
 - Argument 3: The E-Mail of the person that has to sign the PDF document.
 
-While being in the target folder of the application, the program can be called via the Command Line with this command:
+While being in the target folder of the application, the program can be started via the Command Line with this command:
 
 >java -jar UseCase1-1.0-SNAPSHOT-jar-with-dependencies.jar Argument1 Argument2 Argument3
 
@@ -67,17 +74,16 @@ Now startPolling() is called to start the Poll. Every 10 seconds the first GET R
 Once the document was signed, the second GET Request will be called in order to download the signed PDF. The Location where it will be saved was specified in argument 2. You can find your signed document there.
 
 
-
-
 # Upload and Download **multiple** PDF Files
 
 There are a lot of possibilities to make use of this Use Case. For example there could be a change in an employment contract that regards all of a firms employees.
 With the help of the following explanation of the implemented Use Case it will be possible to send Signature Requests to all employees with their corresponding updated employment contract at once. 
+
 This Use Case consists of three arguments and 5 steps.
-- Argument 1: A CSV File has to be provided. It should consist of two columns: 
+- Argument 1: A Path to a CSV File has to be provided. It should consist of two columns: 
   - column 1: The filename of the PDF file to be signed
   - column 2: The E-Mail of the signer that should sign the file of column 1
-- Argument 2: The path to the directory where the files specified in the CSV File of argument 1  are saved (the files should be saved in one directory)
+- Argument 2: The path to the directory where the files specified in the CSV File of argument 1 are saved (the files should be saved in one directory)
 - Argument 3: The path where the file with the resulting Signature-Request-ID's or the signed PDF files should be saved
 
 While being in the target folder of the application, the program can be called via the Command Line with this command:
@@ -93,14 +99,14 @@ The following API-Call will be used for step 1:
 > https://api.scribital.com/v1/access/login
 
 First of all you have to be logged in, in order to use the API of Skribble. To do that, a valid Profile has to exist.
-You need to specify your username and api-key directly in the code in the Main Class on Line 53 (subject to change).
+If you haven't already, you need to specify your username and api-key directly in the code in the Main Class on Line 20.
 To Log yourself in, a new instance of User has to be created with your username and api-key. After that, the loginUser() function will be called on that created instance. A request to the API of Skribble will be sent and you will be logged in. You receive a token for verification and are able to work with Skribbles API.
 
 
 ## 2. Read the CSV File
 
 In order to send the Signature Requests to the signers specified in the CSV File you have to read out the file.
-A new CSVFile instance is created with the path where it is saved as a field. With the readCSVFile() function the File is being read and a List with Strings is created (CSVFileList). Each index corresponds to one row in the CSV File. For Example a CSV File with two rows will look like this:
+A new CSVFile instance is created with the path where it is saved as a field (argument 1). With the readCSVFile() function the File is being read and a List with Strings is created (CSVFileList). Each index corresponds to one row in the CSV File. For Example a CSV File with two rows will look like this:
 >TestFile.pdf;example@mail.com, TestFile2.pdf;example2@mail.com
 
 
@@ -122,9 +128,9 @@ To do that we iterate through our signerList and send out a Signature-Request vi
 
 ## 5. Use the response of the Signature-Requests
 
-For step five we have two possibilities. 
+For step five we have two possibilities. The implementation in the source code uses possibility 1, but you are free to also use possibility 2 if you follow the described steps.
 1. We either save the Signature-Request-ID we receive as a response for every Signature-Request in a .txt file such that we can make use of it at a later point. For example after you know every employee signed its contract you can use this file to receive the document ID via API and download the signed Document.
-To proceed with this possibility comment out step 6 in the function doUseCase2() in the Main class.
+To proceed with this possibility you don't have to do anything because it is already implemented.
 To create the file, we iterate through our responseList to write every Signature-Request-ID and corresponding E-Mail to the File. It then can be found under the path specified as argument 3.
-2. A second possibility would be polling. To make use of this possibility, comment out step 5 out of the function doUseCase2() in the Main class.
+2. A second possibility would be polling. To make use of this possibility, comment out step 5 out of the function doUseCase2() in the Main class and delete the comment for step 6 in the Main class.
 With this option, every 10 seconds a GET request will be called to the API of Skribble in order to check if the document was signed. If it was signed it will automatically be saved under the path specified in argument 3.
