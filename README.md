@@ -56,7 +56,7 @@ This Use Case consists of three arguments and 5 steps.
   - column 1: The filename of the PDF file to be signed
   - column 2: The E-Mail of the signer that should sign the file of column 1
 - Argument 2: The path to the directory where the files specified in the CSV File of argument 1  are saved (the files should be saved in one directory)
-- Argument 3 (optional): The path where the file with the resulting Signature-Request-ID's should be saved
+- Argument 3: The path where the file with the resulting Signature-Request-ID's or the signed PDF files should be saved
 
 While being in the target folder of the application, the program can be called via the Command Line with this command:
 
