@@ -25,7 +25,9 @@ If you want to make use of the program the following tools are required
    - Use Case 2: If you decide to use the application for this Use Case, comment out line 19 in the Main Class such that only UseCase2 is called.
 5. Now fill in your username and api-key directly in the code such that you can be logged in and use the API: Line 20 in the Main Class
 6. **IMPORTANT:** After every change in the Code (like Step 4/5) you have to run this command while being in the root folder of the application to generate a new jar File that will be run:
+
    >mvn clean compile assembly:single
+ 
 7. Now you are set up and can continue with the specific use cases described below
 
 
