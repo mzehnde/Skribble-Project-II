@@ -21,8 +21,8 @@ If you want to make use of the program the following tools are required
 2. Download the source code from Github and save it somewhere on your desktop
 3. Open the Code in an IDE (e.g Intellij)
 4. Decide which Use Case (Use Case 1: Upload/Download *one* PDF or Use Case 2: Upload/Download *multiple* PDF's at once) you want to use the application for¨
-   - Use Case 1: If you decide to use the application for this Use Case, comment out line 20 and line 21 in the Main Class such that only UseCase1 is called.
-   - Use Case 2: If you decide to use the application for this Use Case, comment out line 19 in the Main Class such that only UseCase2 is called.
+   - Use Case 1: If you decide to use the application for this Use Case, comment out line 26 and line 27 in the Main Class such that only UseCase1 is called.
+   - Use Case 2: If you decide to use the application for this Use Case, comment out line 24 in the Main Class such that only UseCase2 is called.
 5. Now fill in your username and api-key directly in the code such that you can be logged in and use the API: Line 20 in the Main Class
 6. **IMPORTANT:** After every change in the Code (like Step 4/5) you have to run this command while being in the root folder of the application to generate a new jar File that will be run:
 
@@ -50,9 +50,8 @@ The following API-Call will be used for step 1:
 > https://api.scribital.com/v1/access/login
 
 First of all you have to be logged in, in order to use the API of Skribble. To do that, a valid Profile has to exist.
-You need to specify your username and api-key directly in the code in the Main Class on Line 53 (subject to change).
+If you haven't already, you need to specify your username and api-key directly in the code in the Main Class on Line 20.
 To Log yourself in, a new instance of User has to be created with your username and api-key. After that, the loginUser() function will be called on that created instance. A request to the API of Skribble will be sent and you will be logged in. You receive a token for verification and are able to work with Skribbles API.
-
 
 ## 2. Create a Signature-Request
 
@@ -138,5 +137,8 @@ For step five we have two possibilities. The implementation in the source code u
 1. We either save the Signature-Request-ID we receive as a response for every Signature-Request in a .txt file such that we can make use of it at a later point. For example after you know every employee signed its contract you can use this file to receive the document ID via API and download the signed Document.
 To proceed with this possibility you don't have to do anything because it is already implemented.
 To create the file, we iterate through our responseList to write every Signature-Request-ID and corresponding E-Mail to the File. It then can be found under the path specified as argument 3.
-2. A second possibility would be polling. To make use of this possibility, comment out step 5 out of the function doUseCase2() in the Main class and delete the comment for step 6 in the Main class.
+2. A second possibility would be polling. To make use of this possibility, comment out step 5 out of the function doUseCase2() in the Main class and delete the comment for step 6 in the Main class. Don't forget to call this command after changin the code such that a new jar file will be created.
+
+>mvn clean compile assembly:single
+
 With this option, every 10 seconds a GET request will be called to the API of Skribble in order to check if the document was signed. If it was signed it will automatically be saved under the path specified in argument 3.
