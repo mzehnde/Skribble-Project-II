@@ -20,7 +20,7 @@ If you want to make use of the program the following tools are required
 1. Make sure all required tools are installed
 2. Download the source code from Github and save it somewhere on your desktop
 3. Open the Code in an IDE (e.g Intellij)
-4. Decide which Use Case (Use Case 1: Upload/Download *one* PDF or Use Case 2: Upload/Download *multiple* PDF's at once) you want to use the application for¨
+4. Decide which Use Case (Use Case 1: Upload/Download *one* PDF or Use Case 2: Upload/Download *multiple* PDF's at once) you want to use the application for
    - Use Case 1: If you decide to use the application for this Use Case, comment out line 26 and line 27 in the Main Class such that only UseCase1 is called.
    - Use Case 2: If you decide to use the application for this Use Case, comment out line 24 in the Main Class such that only UseCase2 is called.
 5. Now fill in your username and api-key directly in the code such that you can be logged in and use the API: Line 20 in the Main Class
