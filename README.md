@@ -1,4 +1,26 @@
 TODO: add setup chapter: what do we need (maven etc) and how to change from using different usecases (assembly:single)
+# Set UP
+
+## Required Tools
+If you want to make use of the program the following tools are required
+
+- Java JDK:
+  - To Check if you have it already installed run >java --version
+  - tutorial how to install: https://www.youtube.com/watch?v=IJ-PJbvJBGs
+  - download here: https://www.oracle.com/java/technologies/javase-jdk16-downloads.html
+
+- Maven: Because the application is compressed into a jar File for the purpose of running the program over the cmd Line we use Maven. 
+  - Version: 3.8.1
+  - tutorial how to install: https://www.youtube.com/watch?v=RfCWg5ay5B0
+  - download here: https://maven.apache.org/download.cgi  
+
+## How to
+
+
+
+
+
+
 
 # Upload and Download **one** PDF File
 
